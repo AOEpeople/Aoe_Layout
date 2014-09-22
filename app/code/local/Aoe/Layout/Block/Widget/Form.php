@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  3/24/14
- */
 class Aoe_Layout_Block_Widget_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     public function setFormData($key, $value = null)

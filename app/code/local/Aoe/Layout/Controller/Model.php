@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-04-01
- */
 abstract class Aoe_Layout_Controller_Model extends Aoe_Layout_Controller_Abstract
 {
     /**
      * List existing records via a grid
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     public function indexAction()
     {
@@ -19,8 +13,6 @@ abstract class Aoe_Layout_Controller_Model extends Aoe_Layout_Controller_Abstrac
 
     /**
      * View existing record
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     public function viewAction()
     {
@@ -36,8 +28,6 @@ abstract class Aoe_Layout_Controller_Model extends Aoe_Layout_Controller_Abstrac
 
     /**
      * @return Mage_Core_Model_Abstract
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     protected function loadModel()
     {
@@ -51,15 +41,11 @@ abstract class Aoe_Layout_Controller_Model extends Aoe_Layout_Controller_Abstrac
 
     /**
      * @return Aoe_Layout_Helper_AbstractModelManager
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     abstract protected function getHelper();
 
     /**
      * @return bool
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     protected function _isAllowed()
     {

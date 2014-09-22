@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-04-15
- */
 class Aoe_Layout_Block_Widget_Grid_Column_Renderer_Action extends Mage_Adminhtml_Block_Widget_Grid_Column_Renderer_Action
 {
     /**

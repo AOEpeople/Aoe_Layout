@@ -1,9 +1,6 @@
 <?php
 
 /**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  3/24/14
- *
  * @method Aoe_Layout_Block_Widget_Grid setRowUrlRoute(string $route)
  * @method Aoe_Layout_Block_Widget_Grid setRowUrlParams(array $params)
  * @method Aoe_Layout_Block_Widget_Grid setRowUrlQueryParams(array $params)
@@ -137,8 +134,6 @@ class Aoe_Layout_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget_Grid
      * @param $value
      *
      * @return $this
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     public function updateColumn($columnId, $key, $value)
     {

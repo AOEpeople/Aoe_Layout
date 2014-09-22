@@ -1,15 +1,8 @@
 <?php
-
-/**
- * @author Lee Saferite <lee.saferite@aoe.com>
- * @since  2014-04-01
- */
 abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_Model
 {
     /**
      * Create a new record
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     public function newAction()
     {
@@ -38,8 +31,6 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
 
     /**
      * Edit an existing record
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     public function editAction()
     {
@@ -69,8 +60,6 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
 
     /**
      * Delete an existing record
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     public function deleteAction()
     {
@@ -96,8 +85,6 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
      * @param array $postData
      *
      * @return array
-     *
-     * @author Lee Saferite <lee.saferite@aoe.com>
      */
     protected function preprocessPostData(array $postData)
     {
