@@ -1,10 +1,14 @@
 {
-    "name": "AOEPeople/Aoe_ExtendedFilter",
-    "description": "Extended filter and layout capabilities",
+    "name": "AOEPeople/Aoe_Layout",
+    "description": "Extended layout capabilities and admin boilerplate",
     "authors": [
         {
             "name": "Lee Saferite",
-            "email": "<first>.<last>@aoe.com"
+            "email": "lee.saferite@aoe.com"
+        },
+        {
+            "name": "David Robinson",
+            "email": "david.robinson@aoe.com"
         }
     ],
     "type": "magento-module",

@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <Aoe_Layout>
+            <version>2.0.0</version>
+        </Aoe_Layout>
+    </modules>
+    <global>
+        <helpers>
+            <Aoe_Layout>
+                <class>Aoe_Layout_Helper</class>
+            </Aoe_Layout>
+        </helpers>
+        <models>
+            <Aoe_Layout>
+                <class>Aoe_Layout_Model</class>
+            </Aoe_Layout>
+            <core>
+                <rewrite>
+                    <layout>Aoe_Layout_Model_Layout</layout>
+                </rewrite>
+            </core>
+        </models>
+        <blocks>
+            <Aoe_Layout>
+                <class>Aoe_Layout_Block</class>
+            </Aoe_Layout>
+            <adminhtml>
+                <rewrite>
+                    <widget_grid_column>Aoe_Layout_Block_Widget_Grid_Column</widget_grid_column>
+                    <widget_grid_column_renderer_action>Aoe_Layout_Block_Widget_Grid_Column_Renderer_Action</widget_grid_column_renderer_action>
+                    <widget_grid_column_renderer_select>Aoe_Layout_Block_Widget_Grid_Column_Renderer_Select</widget_grid_column_renderer_select>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+</config>

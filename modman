@@ -1,3 +1,3 @@
-app/etc/modules/Aoe_ExtendedFilter.xml
-app/code/local/Aoe/ExtendedFilter
-app/design/adminhtml/default/default/template/Aoe/ExtendedFilter
+app/etc/modules/Aoe_Layout.xml
+app/code/local/Aoe/Layout
+app/design/adminhtml/default/default/template/Aoe/Layout
