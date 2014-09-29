@@ -18,7 +18,7 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
         if (is_array($removeInstructions)) {
             foreach ($removeInstructions as $infoNode) {
                 /** @var Mage_Core_Model_Layout_Element $infoNode */
-                if (!$this->checkConfigConditional($infoNode) || $this->checkAclConditional($infoNode, false)) {
+                if (!$this->checkConditionals($infoNode, false)) {
                     continue;
                 }
                 $blockName = trim((string)$infoNode['name']);
@@ -46,7 +46,7 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
     {
         if ($parent instanceof Mage_Core_Model_Layout_Element) {
             // This prevents processing child blocks if the parent block fails a conditional check
-            if (!$this->checkConfigConditional($parent) || !$this->checkAclConditional($parent)) {
+            if (!$this->checkConditionals($parent)) {
                 return;
             }
 
@@ -68,7 +68,7 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
     protected function _generateBlock($node, $parent)
     {
         if ($node instanceof Mage_Core_Model_Layout_Element) {
-            if (!$this->checkConfigConditional($node) || !$this->checkAclConditional($node)) {
+            if (!$this->checkConditionals($node)) {
                 return $this;
             }
         }
@@ -87,7 +87,7 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
     protected function _generateAction($node, $parent)
     {
         if ($node instanceof Mage_Core_Model_Layout_Element) {
-            if (!$this->checkConfigConditional($node) || !$this->checkAclConditional($node)) {
+            if (!$this->checkConditionals($node)) {
                 return $this;
             }
         }
@@ -146,24 +146,16 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
                 }
 
                 // Attempt to process helpers
-                if (isset($arg['helper'])) {
-                    $helperName = explode('/', (string)$arg['helper']);
-                    $helperMethod = array_pop($helperName);
-                    $helperName = implode('/', $helperName);
-
-                    if (isset($children)) {
-                        $translateArgs = $children;
-                    } else {
-                        $translateArgs = array((string)$arg);
-                    }
-
-                    $args[$key] = call_user_func_array(array(Mage::helper($helperName), $helperMethod), $translateArgs);
+                if (isset($children)) {
+                    $tempArg = $children;
                 } else {
-                    if (isset($children)) {
-                        $args[$key] = $children;
-                    } else {
-                        $args[$key] = (string)$arg;
-                    }
+                    $tempArg = (string)$arg;
+                }
+
+                if (isset($arg['helper'])) {
+                    $args[$key] = $this->getHelperMethodValue($arg['helper'], $tempArg);
+                } else {
+                    $args[$key] = $tempArg;
                 }
 
                 unset($children);
@@ -183,6 +175,30 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
         }
 
         return $args;
+    }
+
+    /**
+     * Gets the value of a helper method from the helper method string
+     *
+     * @param $helperMethodString
+     * @param array|string $args
+     *
+     * @return mixed
+     */
+    protected function getHelperMethodValue($helperMethodString, $args = null)
+    {
+        $helperName = explode('/', (string)$helperMethodString);
+        $helperMethod = array_pop($helperName);
+        $helperName = implode('/', $helperName);
+        $helperArgs = array();
+
+        if (!is_array($args)) {
+            $helperArgs[] = $args;
+        } else {
+            $helperArgs = $args;
+        }
+
+        return call_user_func_array(array(Mage::helper($helperName), $helperMethod), $helperArgs);
     }
 
     /**
@@ -207,6 +223,21 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
                 $this->addOutputBlock($blockName, $method);
             }
         }
+    }
+
+    /**
+     * Checks all conditionals for a given layout node
+     *
+     * @param Mage_Core_Model_Layout_Element $node
+     * @param bool $aclDefault
+     *
+     * @return bool
+     */
+    protected function checkConditionals(Mage_Core_Model_Layout_Element $node, $aclDefault = true)
+    {
+        return $this->checkConfigConditional($node)
+               && ($aclDefault ? $this->checkAclConditional($node, $aclDefault) : !$this->checkAclConditional($node, $aclDefault))
+               && $this->checkHelperConditional($node);
     }
 
     /**
@@ -257,5 +288,26 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
         }
 
         return (bool)$default;
+    }
+
+    /**
+     * Process the 'ifhelper' attributes to possibly disable a block/reference/action
+     *
+     * @param Mage_Core_Model_Layout_Element $node
+     *
+     * @return bool
+     */
+    protected function checkHelperConditional(Mage_Core_Model_Layout_Element $node)
+    {
+        if (isset($node['ifhelper']) && ($helperString = trim((string)$node['ifhelper']))) {
+
+            $negativeCheck = (substr($helperString, 0, 1) === '!');
+            $helperString = ($negativeCheck ? substr($helperString, 1) : $helperString);
+            if ((bool)$this->getHelperMethodValue($helperString) === $negativeCheck) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
