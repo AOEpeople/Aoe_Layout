@@ -18,6 +18,7 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
                 $model->addData($this->preprocessPostData($postData));
                 $model->save();
                 $this->_redirectUrl($this->getHelper()->getGridUrl());
+                $this->_getSession()->addSuccess('Saved Successfully');
                 return;
             } catch (Exception $e) {
                 Mage::logException($e);
@@ -72,6 +73,7 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
         try {
             $model->delete();
             $this->_redirectUrl($this->getHelper()->getGridUrl());
+            $this->_getSession()->addSuccess('Deleted Successfully');
         } catch (Exception $e) {
             Mage::logException($e);
             $this->_getSession()->addError($e->getMessage());
