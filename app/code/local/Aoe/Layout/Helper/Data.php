@@ -26,12 +26,13 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @param string $modelRef
      * @param bool   $useCollection
+     * @param bool   $trimEmptyValues
      *
      * @return array|mixed
      *
      * @throws RuntimeException
      */
-    public function getSourceModelArray($modelRef, $useCollection = false)
+    public function getSourceModelArray($modelRef, $useCollection = false, $trimEmptyValues = false)
     {
         $model = Mage::getSingleton($modelRef);
         if (!$model) {
@@ -76,18 +77,27 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
             }
         }
 
+        if ($trimEmptyValues) {
+            foreach ($optionArray as $k => $option) {
+                if ($option['value'] == '') {
+                    unset($optionArray[$k]);
+                }
+            }
+        }
+
         return $optionArray;
     }
 
     /**
      * @param string $modelRef
      * @param bool   $useCollection
+     * @param bool   $trimEmptyValues
      *
      * @return array|mixed
      *
      * @throws RuntimeException
      */
-    public function getSourceModelHash($modelRef, $useCollection = false)
+    public function getSourceModelHash($modelRef, $useCollection = false, $trimEmptyValues = false)
     {
         $model = Mage::getSingleton($modelRef);
         if (!$model) {
@@ -127,6 +137,10 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
             } else {
                 throw new RuntimeException($this->__('Source model (%s) does not have required method toOptionArray or toOptionHash', $modelRef));
             }
+        }
+
+        if($trimEmptyValues) {
+            unset($optionHash['']);
         }
 
         return $optionHash;
