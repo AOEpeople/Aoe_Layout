@@ -15,6 +15,7 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             try {
+                $model->isObjectNew(true);
                 $model->addData($this->preprocessPostData($postData));
                 $model->save();
                 $this->_redirectUrl($this->getHelper()->getGridUrl());
