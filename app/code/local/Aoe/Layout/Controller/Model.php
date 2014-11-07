@@ -44,7 +44,10 @@ abstract class Aoe_Layout_Controller_Model extends Aoe_Layout_Controller_Abstrac
     protected function loadModel()
     {
         /** @var Mage_Core_Model_Abstract $model */
-        $model = $this->getHelper()->getModel()->load($this->getRequest()->getParam('id'));
+        $model = $this->getHelper()->getModel();
+
+        $id = $this->getRequest()->getUserParam($model->getIdFieldName(), $this->getRequest()->getQuery($model->getIdFieldName()));
+        $model->load($id);
 
         $this->getHelper()->setCurrentRecord($model);
 
