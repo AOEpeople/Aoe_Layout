@@ -7,6 +7,18 @@ abstract class Aoe_Layout_Controller_Model extends Aoe_Layout_Controller_Abstrac
      */
     public function indexAction()
     {
+        if ($this->getRequest()->isAjax()) {
+            try {
+                $this->loadLayout(null, false, false);
+                $this->getLayout()->getUpdate()->setCacheId(null);
+                $this->getLayout()->getUpdate()->addHandle(strtolower($this->getFullActionName()) . '_AJAX');
+            } catch (Exception $e) {
+                Mage::logException($e);
+                $this->getResponse()->setHeader('Content-Type', 'application/json');
+                $this->getResponse()->setBody(Zend_Json::encode(array('error' => true, 'message' => $e->getMessage())));
+            }
+        }
+
         $this->loadLayout();
         $this->renderLayout();
     }
