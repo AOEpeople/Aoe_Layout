@@ -22,8 +22,20 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
                 $this->_getSession()->addSuccess('Saved Successfully');
                 return;
             } catch (Exception $e) {
+                $message = $e->getMessage();
+                if ($e instanceof Zend_Db_Statement_Exception && $e->getChainedException() instanceof PDOException) {
+                    /** @var PDOException $e */
+                    $e = $e->getChainedException();
+                    if (isset($e->errorInfo[0]) && $e->errorInfo[0] == 23000 && isset($e->errorInfo[1]) && $e->errorInfo[1] == 1062) {
+                        $message = $this->getHelper()->__(
+                            "Record already exists for %s '%s'",
+                            $model->getIdFieldName(),
+                            $model->getId()
+                        );
+                    }
+                }
                 Mage::logException($e);
-                $this->_getSession()->addError($e->getMessage());
+                $this->_getSession()->addError($message);
             }
         }
 
@@ -51,6 +63,9 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
                 $this->_getSession()->addSuccess('Saved Successfully');
                 return;
             } catch (Exception $e) {
+                if ($e instanceof Zend_Db_Statement_Exception && $e->getChainedException() instanceof PDOException) {
+                    $e = $e->getChainedException();
+                }
                 Mage::logException($e);
                 $this->_getSession()->addError($e->getMessage());
             }
@@ -76,6 +91,9 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
             $this->_redirectUrl($this->getHelper()->getGridUrl());
             $this->_getSession()->addSuccess('Deleted Successfully');
         } catch (Exception $e) {
+            if ($e instanceof Zend_Db_Statement_Exception && $e->getChainedException() instanceof PDOException) {
+                $e = $e->getChainedException();
+            }
             Mage::logException($e);
             $this->_getSession()->addError($e->getMessage());
             $this->_redirectUrl($this->getHelper()->getEditUrl($model));
