@@ -113,6 +113,7 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
      */
     protected function preprocessPostData(array $postData)
     {
+        unset($postData['form_key']);
         return $postData;
     }
 
