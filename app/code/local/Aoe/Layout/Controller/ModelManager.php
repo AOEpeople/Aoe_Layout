@@ -7,7 +7,7 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
     public function newAction()
     {
         $model = $this->loadModel();
-        if ($model->getId()) {
+        if (!$model->isObjectNew()) {
             $this->_forward('noroute');
             return;
         }
@@ -51,7 +51,7 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
     public function editAction()
     {
         $model = $this->loadModel();
-        if (!$model->getId()) {
+        if ($model->isObjectNew()) {
             $this->_forward('noroute');
             return;
         }
@@ -85,7 +85,7 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
     public function deleteAction()
     {
         $model = $this->loadModel();
-        if (!$model->getId()) {
+        if ($model->isObjectNew()) {
             $this->_forward('noroute');
             return;
         }
