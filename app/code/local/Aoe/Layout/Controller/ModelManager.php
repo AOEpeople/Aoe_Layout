@@ -16,7 +16,9 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
             $postData = $this->getRequest()->getPost();
             try {
                 $model->isObjectNew(true);
-                $model->addData($this->preprocessPostData($postData));
+                foreach($this->preprocessPostData($postData) as $key => $value) {
+                    $model->setDataUsingMethod($key, $value);
+                }
                 $model->save();
                 $this->_redirectUrl($this->getHelper()->getGridUrl());
                 $this->_getSession()->addSuccess('Saved Successfully');
@@ -57,7 +59,9 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             try {
-                $model->addData($this->preprocessPostData($postData));
+                foreach($this->preprocessPostData($postData) as $key => $value) {
+                    $model->setDataUsingMethod($key, $value);
+                }
                 $model->save();
                 $this->_redirectUrl($this->getHelper()->getGridUrl());
                 $this->_getSession()->addSuccess('Saved Successfully');
