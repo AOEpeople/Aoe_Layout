@@ -52,7 +52,7 @@ abstract class Aoe_Layout_Helper_AbstractModelManager extends Aoe_Layout_Helper_
             }
         }
 
-        return $this->_getUrl($this->getEditRoute(), array('id' => $model->getId()));
+        return $this->_getUrl($this->getEditRoute(), array($model->getIdFieldName() => $model->getId()));
     }
 
     /**
@@ -81,6 +81,6 @@ abstract class Aoe_Layout_Helper_AbstractModelManager extends Aoe_Layout_Helper_
             }
         }
 
-        return $this->_getUrl($this->getDeleteRoute(), array('id' => $model->getId()));
+        return $this->_getUrl($this->getDeleteRoute(), array($model->getIdFieldName() => $model->getId()));
     }
 }
