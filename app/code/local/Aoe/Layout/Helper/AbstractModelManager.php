@@ -52,7 +52,11 @@ abstract class Aoe_Layout_Helper_AbstractModelManager extends Aoe_Layout_Helper_
             }
         }
 
-        return $this->_getUrl($this->getEditRoute(), array($model->getIdFieldName() => $model->getId()));
+        if($model->isObjectNew()) {
+            return $this->_getUrl($this->getAddRoute());
+        } else {
+            return $this->_getUrl($this->getEditRoute(), array($model->getIdFieldName() => $model->getId()));
+        }
     }
 
     /**
