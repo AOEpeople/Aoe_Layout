@@ -149,6 +149,18 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
+     * Simple helper method to expose Mage_Core_Model_App::isSingleStoreMode()
+     *
+     * @return bool
+     *
+     * @see Mage_Core_Model_App::isSingleStoreMode()
+     */
+    public function getIsSingleStoreMode()
+    {
+        return Mage::app()->isSingleStoreMode();
+    }
+
+    /**
      * @param Mage_Core_Model_Resource_Db_Collection_Abstract $collection
      * @param array                                           $filters
      * @param array                                           $ifConditionals
