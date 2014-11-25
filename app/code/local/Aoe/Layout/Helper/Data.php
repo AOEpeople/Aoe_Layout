@@ -57,6 +57,7 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
         $additionalArgs = func_get_args();
         array_shift($additionalArgs);
         array_shift($additionalArgs);
+        array_shift($additionalArgs);
 
         if (method_exists($model, 'toOptionArray')) {
             $optionArray = call_user_func_array(array($model, 'toOptionArray'), $additionalArgs);
@@ -120,6 +121,7 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         $additionalArgs = func_get_args();
+        array_shift($additionalArgs);
         array_shift($additionalArgs);
         array_shift($additionalArgs);
 
