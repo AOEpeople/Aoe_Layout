@@ -108,13 +108,13 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
         if (!empty($block)) {
             $args = (array)$node->children();
 
-            $jsonArgs = (isset($node['json']) ? explode(' ', (string)$node['json']) : array());
+            $jsonArgs = (isset($node['json']) ? explode(' ', (string)$node['json']) : []);
             $jsonHelper = Mage::helper('core');
-            $translateArgs = (isset($node['translate']) ? explode(' ', (string)$node['translate']) : array());
+            $translateArgs = (isset($node['translate']) ? explode(' ', (string)$node['translate']) : []);
             $translateHelper = Mage::helper(isset($node['module']) ? (string)$node['module'] : 'core');
             $args = $this->processActionArgs($args, $jsonArgs, $jsonHelper, $translateArgs, $translateHelper);
 
-            call_user_func_array(array($block, $method), $args);
+            call_user_func_array([$block, $method], $args);
         }
 
         Varien_Profiler::stop($_profilerKey);
@@ -132,7 +132,7 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
      *
      * @return array
      */
-    protected function processActionArgs(array $args, $jsonArgs = array(), $jsonHelper = null, $transArgs = array(), $transHelper = null, $currentPath = '')
+    protected function processActionArgs(array $args, $jsonArgs = [], $jsonHelper = null, $transArgs = [], $transHelper = null, $currentPath = '')
     {
         $jsonHelper = ((!is_null($jsonHelper) && method_exists($jsonHelper, 'jsonDecode')) ? $jsonHelper : Mage::helper('core'));
         $transHelper = ((!is_null($transHelper) && method_exists($transHelper, '__')) ? $transHelper : Mage::helper('core'));
@@ -169,7 +169,7 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
                 if (is_string($args[$key])) {
                     $args[$key] = $transHelper->__($args[$key]);
                 } else {
-                    $args[$key] = call_user_func_array(array($transHelper, '__'), $args[$key]);
+                    $args[$key] = call_user_func_array([$transHelper, '__'], $args[$key]);
                 }
             }
         }
@@ -190,7 +190,7 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
         $helperName = explode('/', (string)$helperMethodString);
         $helperMethod = array_pop($helperName);
         $helperName = implode('/', $helperName);
-        $helperArgs = array();
+        $helperArgs = [];
 
         if (!is_array($args)) {
             $helperArgs[] = $args;
@@ -198,7 +198,7 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
             $helperArgs = $args;
         }
 
-        return call_user_func_array(array(Mage::helper($helperName), $helperMethod), $helperArgs);
+        return call_user_func_array([Mage::helper($helperName), $helperMethod], $helperArgs);
     }
 
     /**
@@ -300,7 +300,6 @@ class Aoe_Layout_Model_Layout extends Mage_Core_Model_Layout
     protected function checkHelperConditional(Mage_Core_Model_Layout_Element $node)
     {
         if (isset($node['ifhelper']) && ($helperString = trim((string)$node['ifhelper']))) {
-
             $negativeCheck = (substr($helperString, 0, 1) === '!');
             $helperString = ($negativeCheck ? substr($helperString, 1) : $helperString);
             if ((bool)$this->getHelperMethodValue($helperString) === $negativeCheck) {

@@ -16,8 +16,8 @@ class Aoe_Layout_Block_Widget_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
     {
         parent::addTab($tabId, $tab);
 
-        if($this->_tabs[$tabId] instanceof Mage_Core_Block_Abstract && $this->_tabs[$tabId]->getParentBlock() === null) {
-           $this->append($this->_tabs[$tabId]);
+        if ($this->_tabs[$tabId] instanceof Mage_Core_Block_Abstract && $this->_tabs[$tabId]->getParentBlock() === null) {
+            $this->append($this->_tabs[$tabId]);
         }
 
         return $this;

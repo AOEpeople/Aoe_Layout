@@ -17,7 +17,7 @@ class Aoe_Layout_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget_Grid
         }
 
         // replace . : - with _
-        $id = ($id ? str_replace(array('.', ':', '-'), '_', $id) : $id);
+        $id = ($id ? str_replace(['.', ':', '-'], '_', $id) : $id);
 
         parent::setId($id);
 
@@ -57,7 +57,7 @@ class Aoe_Layout_Block_Widget_Grid extends Mage_Adminhtml_Block_Widget_Grid
             return parent::getRowUrl($item);
         }
 
-        $params = array();
+        $params = [];
 
         $rowUrlParams = $this->getRowUrlParams();
         $rowUrlParams = (is_array($rowUrlParams) ? $rowUrlParams : explode(',', $rowUrlParams));

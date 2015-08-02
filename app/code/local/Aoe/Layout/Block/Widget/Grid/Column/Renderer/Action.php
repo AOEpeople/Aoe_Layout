@@ -11,7 +11,7 @@ class Aoe_Layout_Block_Widget_Grid_Column_Renderer_Action extends Mage_Adminhtml
      */
     public function render(Varien_Object $row)
     {
-        $renderActions = array();
+        $renderActions = [];
 
         $actions = $this->getColumn()->getActions();
         if (is_array($actions)) {

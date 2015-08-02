@@ -16,7 +16,7 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
             $postData = $this->getRequest()->getPost();
             try {
                 $model->isObjectNew(true);
-                foreach($this->preprocessPostData($postData) as $key => $value) {
+                foreach ($this->preprocessPostData($postData) as $key => $value) {
                     $model->setDataUsingMethod($key, $value);
                 }
                 $model->save();
@@ -59,7 +59,7 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
         if ($this->getRequest()->isPost()) {
             $postData = $this->getRequest()->getPost();
             try {
-                foreach($this->preprocessPostData($postData) as $key => $value) {
+                foreach ($this->preprocessPostData($postData) as $key => $value) {
                     $model->setDataUsingMethod($key, $value);
                 }
                 $model->save();
@@ -127,5 +127,4 @@ abstract class Aoe_Layout_Controller_ModelManager extends Aoe_Layout_Controller_
 
         return $action;
     }
-
 }

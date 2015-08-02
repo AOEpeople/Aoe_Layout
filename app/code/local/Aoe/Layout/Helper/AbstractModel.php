@@ -87,7 +87,7 @@ abstract class Aoe_Layout_Helper_AbstractModel extends Aoe_Layout_Helper_Data
             }
         }
 
-        return $this->_getUrl($this->getViewRoute(), array('id' => $model->getId()));
+        return $this->_getUrl($this->getViewRoute(), ['id' => $model->getId()]);
     }
 
     /**
@@ -141,7 +141,7 @@ abstract class Aoe_Layout_Helper_AbstractModel extends Aoe_Layout_Helper_Data
      * @param   array $params
      * @return  string
      */
-    protected function _getUrl($route, $params = array())
+    protected function _getUrl($route, $params = [])
     {
         return Mage::helper('adminhtml')->getUrl($route, $params);
     }

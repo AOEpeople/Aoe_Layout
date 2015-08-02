@@ -15,7 +15,7 @@ abstract class Aoe_Layout_Controller_Model extends Aoe_Layout_Controller_Abstrac
             } catch (Exception $e) {
                 Mage::logException($e);
                 $this->getResponse()->setHeader('Content-Type', 'application/json');
-                $this->getResponse()->setBody(Zend_Json::encode(array('error' => true, 'message' => $e->getMessage())));
+                $this->getResponse()->setBody(Zend_Json::encode(['error' => true, 'message' => $e->getMessage()]));
             }
         }
 

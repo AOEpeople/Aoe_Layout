@@ -60,15 +60,15 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
         array_shift($additionalArgs);
 
         if (method_exists($model, 'toOptionArray')) {
-            $optionArray = call_user_func_array(array($model, 'toOptionArray'), $additionalArgs);
+            $optionArray = call_user_func_array([$model, 'toOptionArray'], $additionalArgs);
         } elseif (method_exists($model, 'toOptionHash')) {
-            $optionHash = call_user_func_array(array($model, 'toOptionHash'), $additionalArgs);
-            $optionArray = array();
+            $optionHash = call_user_func_array([$model, 'toOptionHash'], $additionalArgs);
+            $optionArray = [];
             foreach ($optionHash as $value => $label) {
-                $optionArray[] = array(
+                $optionArray[] = [
                     'value' => $value,
                     'label' => $label
-                );
+                ];
             }
         } else {
             if ($useCollection) {
@@ -126,10 +126,10 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
         array_shift($additionalArgs);
 
         if (method_exists($model, 'toOptionHash')) {
-            $optionHash = call_user_func_array(array($model, 'toOptionHash'), $additionalArgs);
+            $optionHash = call_user_func_array([$model, 'toOptionHash'], $additionalArgs);
         } elseif (method_exists($model, 'toOptionArray')) {
-            $optionArray = call_user_func_array(array($model, 'toOptionArray'), $additionalArgs);
-            $optionHash = array();
+            $optionArray = call_user_func_array([$model, 'toOptionArray'], $additionalArgs);
+            $optionHash = [];
             foreach ($optionArray as $option) {
                 $optionHash[$option['value']] = $option['label'];
             }
@@ -141,7 +141,7 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
             }
         }
 
-        if($trimEmptyValues) {
+        if ($trimEmptyValues) {
             unset($optionHash['']);
         }
 
@@ -167,7 +167,7 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @return Mage_Core_Model_Resource_Db_Collection_Abstract
      */
-    public function filterCollection(Mage_Core_Model_Resource_Db_Collection_Abstract $collection, array $filters, array $ifConditionals = array())
+    public function filterCollection(Mage_Core_Model_Resource_Db_Collection_Abstract $collection, array $filters, array $ifConditionals = [])
     {
         $filter = true;
         foreach ($ifConditionals as $ifConditional) {
@@ -203,7 +203,7 @@ class Aoe_Layout_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @author Lee Saferite <lee.saferite@aoe.com>
      */
-    public function getUrl($route, $params = array())
+    public function getUrl($route, $params = [])
     {
         return $this->_getUrl($route, $params);
     }
