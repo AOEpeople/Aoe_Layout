@@ -19,3 +19,7 @@
 * Module Dependencies
     * Mage_Core
     * Mage_Adminhtml
+    
+## NOTES
+* This module is currently being written for PHP 5.5+ and Magento CE 1.9+ support only.
+* When PHP 5.6 hits EOL, the minimum requirements will be updated to reflect this.

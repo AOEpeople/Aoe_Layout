@@ -34,4 +34,11 @@
             </adminhtml>
         </blocks>
     </global>
+    <phpunit>
+        <suite>
+            <modules>
+                <Aoe_Layout/>
+            </modules>
+        </suite>
+    </phpunit>
 </config>

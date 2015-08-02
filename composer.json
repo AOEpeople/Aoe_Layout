@@ -11,11 +11,15 @@
             "email": "david.robinson@aoe.com"
         }
     ],
+    "license": "OSL-3.0",
     "type": "magento-module",
     "require": {
+        "php": ">= 5.5",
         "magento-hackathon/magento-composer-installer": "*"
     },
     "require-dev": {
-        "ecomdev/ecomdev_phpunit": "*"
+        "ecomdev/ecomdev_phpunit": "*",
+        "squizlabs/php_codesniffer": "*",
+        "phpmd/phpmd": "*"
     }
 }
